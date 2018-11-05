@@ -94,9 +94,10 @@ void PCarsSharedMemory::copyVector3Swizzled(const float* src, float* dest, bool 
 {
 	float SCALE = 1.0f;
 
-	float mph_to_ms = 0.44704f;
-	float one_g = 9.80665f;
-	float ms_to_g = 0.101972f;
+	#define mph_to_ms 0.44704f
+	#define one_g 9.80665f
+	#define ms_to_g 0.101972f
+
 	float norm_scale = 1.0f;
 
 	if (normalise)
