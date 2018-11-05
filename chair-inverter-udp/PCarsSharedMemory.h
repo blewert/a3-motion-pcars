@@ -9,6 +9,7 @@ Copyright (c) MWL. All rights reserved.
 #define _SHARED_MEMORY_HPP_
 
 #include <string>
+#include "PerlinNoise.hpp"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NOTES:
@@ -409,13 +410,15 @@ public:
 	void blockUntilDetected(void);
 
 	void copyVector3(const float* src, float* dest);
-	void copyVector3Swizzled(const float* src, float* dest, bool normalise);
+	void copyVector3Swizzled(const float* src, float* dest, bool normalise, int packet);
 
 	bool invertRoll;
 	bool invertSurge;
+	bool useNoise;
 
 	float roll_mult = 1.0f;
 	float surge_mult = 1.0f;
+	siv::PerlinNoise noise;
 };
 
 #endif  // _SHARED_MEMORY_HPP_

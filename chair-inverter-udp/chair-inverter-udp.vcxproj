@@ -156,6 +156,7 @@
     <ClInclude Include="Keys.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PCarsSharedMemory.h" />
+    <ClInclude Include="PerlinNoise.hpp" />
     <ClInclude Include="Simphynity.h" />
     <ClInclude Include="UDPClient.h" />
   </ItemGroup>

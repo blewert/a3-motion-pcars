@@ -9,3 +9,6 @@
 #include "PCarsSharedMemory.h"
 #include "UDPClient.h"
 #include "keys.h"
+#include "PerlinNoise.hpp"
+
+using siv::PerlinNoise;
