@@ -8,39 +8,32 @@
 
 PCarsSharedMemory::PCarsSharedMemory(void)
 {
-	this->game = this->getSharedMemory();
+	//this->game = this->getSharedMemory();
 }
 
-const SharedMemory* PCarsSharedMemory::getSharedMemory(void) const
+SharedMemory* PCarsSharedMemory::getSharedMemory(void) const
 {
 	// Open the memory-mapped file
 	HANDLE fileHandle = OpenFileMappingA(PAGE_READONLY, FALSE, MAP_OBJECT_NAME);
 
 	if (fileHandle == NULL)
-	{
-		printf("Could not open file mapping object (%d).\n", GetLastError());
 		return NULL;
-	}
 
 	// Get the data structure
-	const SharedMemory* sharedData = new SharedMemory;
+	SharedMemory* sharedData = new SharedMemory;
 
 	//Get map
 	sharedData = (SharedMemory*)MapViewOfFile(fileHandle, PAGE_READONLY, 0, 0, sizeof(SharedMemory));
 
 	if (sharedData == NULL)
 	{
-		printf("Could not map view of file (%d).\n", GetLastError());
 		CloseHandle(fileHandle);
 		return NULL;
 	}
 
 	// Ensure we're sync'd to the correct data version
 	if (sharedData->mVersion != SHARED_MEMORY_VERSION)
-	{
-		printf("Data version mismatch\n");
 		return NULL;
-	}
 
 	return sharedData;
 }
@@ -90,10 +83,12 @@ void PCarsSharedMemory::copyVector3(const float * src, float * dest)
 	memcpy(dest, src, sizeof(float) * 3);
 }
 
-/*float* magnitude(const float* src)
+void PCarsSharedMemory::blockUntilDetected(void)
 {
+	while ((this->game = getSharedMemory()) == NULL);
 
-}*/
+	printf("[detected] Project CARS 2 -- opening shared memory!\n");
+}
 
 void PCarsSharedMemory::copyVector3Swizzled(const float* src, float* dest, bool normalise)
 {

@@ -255,7 +255,6 @@ typedef struct
 	unsigned int mCurrentSector;                     // [ enum (Type#4) Current Sector ]
 } ParticipantInfo;
 
-
 // *** Shared Memory ***
 
 typedef struct
@@ -391,19 +390,23 @@ typedef struct
 	float mCloudBrightness;                          // [ RANGE = 0.0f->... ]
 } SharedMemory;
 
+#define GAME_REPLAY 6
+
 class PCarsSharedMemory
 {
 public:
-	const SharedMemory* game;
+	SharedMemory* game;
 	//--
 	PCarsSharedMemory(void);
-	const SharedMemory* getSharedMemory(void) const;
+	SharedMemory* getSharedMemory(void) const;
 	bool isPlayerInGame(void) const;
 	bool isPlayerInRaceSession(void) const;
 	bool isPlayerRacing(void) const;
 	bool isRaceFinished(void) const;
 	bool isWaitingForRaceStart(void) const;
 	std::string getLapTime(void) const;
+
+	void blockUntilDetected(void);
 
 	void copyVector3(const float* src, float* dest);
 	void copyVector3Swizzled(const float* src, float* dest, bool normalise);
