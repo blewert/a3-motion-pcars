@@ -2,14 +2,21 @@
 #include <Windows.h>
 #include "PCarsSharedMemory.h"
 #include "Simphynity.h"
+#include <random>
 
 // Name of the pCars memory mapped file
 #define MAP_OBJECT_NAME "$pcars$"
 
 PCarsSharedMemory::PCarsSharedMemory(void)
 {
-	this->noise = siv::PerlinNoise(GetTickCount());
-	//this->game = this->getSharedMemory();
+	std::srand(GetTickCount());
+
+	shuffle();
+}
+
+void PCarsSharedMemory::shuffle(void)
+{
+	std::random_shuffle(this->shuffled.begin(), this->shuffled.end());
 }
 
 SharedMemory* PCarsSharedMemory::getSharedMemory(void) const
@@ -91,42 +98,48 @@ void PCarsSharedMemory::blockUntilDetected(void)
 	printf("[detected] Project CARS 2 -- opening shared memory!\n");
 }
 
-void PCarsSharedMemory::copyVector3Swizzled(const float* src, float* dest, bool normalise, int packet)
+void PCarsSharedMemory::copyVector3Random(const float* src, float* dest, bool normalise)
 {
-	float SCALE = 1.0f;
+	copyVector3Swizzled(src, dest, normalise);
+
+	#define surge dest[0]
+	#define roll dest[1]
+
+	float surge_vaxis_p = max(surge, 0);
+	float surge_vaxis_n = min(surge, 0);
+	float roll_vaxis_p  = max(roll, 0);
+	float roll_vaxis_n  = min(roll, 0);
+
+	float vaxis[] = 
+	{
+		surge_vaxis_p, surge_vaxis_n,
+		roll_vaxis_p,  roll_vaxis_n
+	};
+
+	//
+	//shuffle vaxis!
+	//
+
+	surge = vaxis[shuffled[0]] + vaxis[shuffled[1]];
+	roll  = vaxis[shuffled[2]] + vaxis[shuffled[3]];
+}
+
+void PCarsSharedMemory::copyVector3Swizzled(const float* src, float* dest, bool normalise)
+{
+	#define SCALE 1.0f
 
 	#define mph_to_ms 0.44704f
-	#define one_g 9.80665f
-	#define ms_to_g 0.101972f
+	#define ms_to_g   0.101972f
 
 	float norm_scale = 1.0f;
 
 	if (normalise)
 		norm_scale = 200.0f * mph_to_ms;
 
-
-	#define freq 5000.0f
-
-	int t = GetTickCount();
-
-	float noiseX = (noise.octaveNoise0_1(t / freq, 0, 0, 5) - 0.5f);
-	float noiseY = (noise.octaveNoise0_1(0, t / freq, 0, 5) - 0.5f);
-	float noiseZ = (noise.octaveNoise0_1(0, 0, t / freq, 5) - 0.5f);
-
 	//0: x, 1: y, 2: z
 	dest[0] = (src[2] * SCALE * surge_mult) / norm_scale;
 	dest[1] = (src[0] * SCALE * roll_mult)  / norm_scale;
 	dest[2] = (src[1] * SCALE) / norm_scale;
-
-	if (useNoise)
-		dest[0] = noiseX,
-		dest[1] = noiseY,
-		dest[2] = noiseZ;
-
-	if (useNoise && !normalise)
-		dest[0] = noiseX * 25.0f,
-		dest[1] = noiseY * 25.0f,
-		dest[2] = noiseZ * 25.0f;
 
 	if (!normalise)
 		dest[2] += ms_to_g;

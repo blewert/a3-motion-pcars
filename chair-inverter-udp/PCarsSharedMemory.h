@@ -410,15 +410,22 @@ public:
 	void blockUntilDetected(void);
 
 	void copyVector3(const float* src, float* dest);
-	void copyVector3Swizzled(const float* src, float* dest, bool normalise, int packet);
+	void copyVector3Swizzled(const float* src, float* dest, bool normalise);
+	void copyVector3Random(const float* src, float* dest, bool normalise);
 
 	bool invertRoll;
 	bool invertSurge;
 	bool useNoise;
 
+	std::vector<int> shuffled =
+	{
+		0, 1, 2, 3
+	};
+
+	void shuffle(void);
+
 	float roll_mult = 1.0f;
 	float surge_mult = 1.0f;
-	siv::PerlinNoise noise;
 };
 
 #endif  // _SHARED_MEMORY_HPP_
