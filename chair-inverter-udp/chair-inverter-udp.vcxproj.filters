@@ -38,5 +38,8 @@
     <ClInclude Include="Simphynity.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Keys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

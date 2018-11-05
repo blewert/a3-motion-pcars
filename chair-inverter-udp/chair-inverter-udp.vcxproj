@@ -153,6 +153,7 @@
     <ClCompile Include="UDPClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Keys.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PCarsSharedMemory.h" />
     <ClInclude Include="Simphynity.h" />
