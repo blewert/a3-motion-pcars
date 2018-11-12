@@ -1,3 +1,9 @@
-﻿  PCarsTelemetryLogger.cpp
-c:\users\ben\source\repos\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarstelemetrylogger.cpp(21): warning C4018: '<': signed/unsigned mismatch
-  project-cars-telemetry-writer.vcxproj -> C:\Users\Ben\source\repos\project-cars-telemetry-writer\Debug\project-cars-telemetry-writer.exe
+﻿  PCarsSharedMemory.cpp
+c:\users\ben\source\repos\chair-inverter-udp\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarssharedmemory.cpp(81): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\ben\source\repos\chair-inverter-udp\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarssharedmemory.cpp(82): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\ben\source\repos\chair-inverter-udp\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarssharedmemory.cpp(83): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  PCarsTelemetryLogger.cpp
+c:\users\ben\source\repos\chair-inverter-udp\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarstelemetrylogger.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  project-cars-telemetry-writer.cpp
+  Generating Code...
+  project-cars-telemetry-writer.vcxproj -> C:\Users\Ben\source\repos\chair-inverter-udp\project-cars-telemetry-writer\Debug\project-cars-telemetry-writer.exe

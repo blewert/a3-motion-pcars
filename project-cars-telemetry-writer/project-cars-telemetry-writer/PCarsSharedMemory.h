@@ -9,6 +9,7 @@ Copyright (c) MWL. All rights reserved.
 #define _SHARED_MEMORY_HPP_
 
 #include <vector>
+#include <windows.h>
 #include <string>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -399,7 +400,7 @@ public:
 	SharedMemory* game;
 	//--
 	PCarsSharedMemory(void);
-	SharedMemory* getSharedMemory(void) const;
+	SharedMemory* getSharedMemory(void);
 	bool isPlayerInGame(void) const;
 	bool isPlayerInRaceSession(void) const;
 	bool isPlayerRacing(void) const;
@@ -423,7 +424,7 @@ public:
 	};
 
 	void shuffle(void);
-
+	HANDLE fileHandle;
 	float roll_mult = 1.0f;
 	float surge_mult = 1.0f;
 };

@@ -18,7 +18,7 @@ void PCarsSharedMemory::shuffle(void)
 	std::random_shuffle(this->shuffled.begin(), this->shuffled.end());
 }
 
-SharedMemory* PCarsSharedMemory::getSharedMemory(void) const
+SharedMemory* PCarsSharedMemory::getSharedMemory(void)
 {
 	// Open the memory-mapped file
 	HANDLE fileHandle = OpenFileMappingA(PAGE_READONLY, FALSE, MAP_OBJECT_NAME);
@@ -37,6 +37,8 @@ SharedMemory* PCarsSharedMemory::getSharedMemory(void) const
 		CloseHandle(fileHandle);
 		return NULL;
 	}
+
+	this->fileHandle = fileHandle;
 
 	// Ensure we're sync'd to the correct data version
 	if (sharedData->mVersion != SHARED_MEMORY_VERSION)

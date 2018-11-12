@@ -10,6 +10,8 @@
 
 typedef struct 
 {
+	float time;
+
 	float pX;
 	float pY;
 	float pZ;
@@ -66,6 +68,8 @@ typedef struct
 	std::ofstream& write(std::ofstream& in)
 	{
 		in << \
+			time << " " <<
+			//---
 			pX << " " << 
 			pY << " " <<
 			pZ << " " <<
@@ -145,7 +149,7 @@ public:
 
 	PCarsTelemetryLogger(const char* basePath, int updateInterval, int bufferSize);
 
-	void update(PCarsSharedMemory* pcars);
+	bool update(PCarsSharedMemory* pcars);
 	void updateLogger(PCarsSharedMemory* pcars);
 
 	void restart(void);

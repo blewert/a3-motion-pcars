@@ -23,62 +23,62 @@ void PCarsTelemetryLogger::updateLogger(PCarsSharedMemory* pcars)
 
 		buffer->clear();
 	}
-	else
-	{
-		PCarsTelemetry data;
 
-		data.antiLockActive = pcars->game->mAntiLockActive;
-		//--
-		data.avX = pcars->game->mAngularVelocity[0];
-		data.avY = pcars->game->mAngularVelocity[1];
-		data.avZ = pcars->game->mAngularVelocity[2];
-		//--
-		data.aX = pcars->game->mLocalAcceleration[0];
-		data.aY = pcars->game->mLocalAcceleration[1];
-		data.aZ = pcars->game->mLocalAcceleration[2];
-		//--
-		data.vX = pcars->game->mLocalVelocity[0];
-		data.vY = pcars->game->mLocalVelocity[1];
-		data.vZ = pcars->game->mLocalVelocity[2];
-		//--
-		data.pX = pcars->game->mParticipantInfo->mWorldPosition[0];
-		data.pY = pcars->game->mParticipantInfo->mWorldPosition[1];
-		data.pZ = pcars->game->mParticipantInfo->mWorldPosition[2];
-		//--
-		data.rX = pcars->game->mOrientation[0];
-		data.rY = pcars->game->mOrientation[1];
-		data.rZ = pcars->game->mOrientation[2];
-		//--
-		data.brakeTemp = pcars->game->mBrakeTempCelsius[0] + pcars->game->mBrakeTempCelsius[1] + pcars->game->mBrakeTempCelsius[2] + pcars->game->mBrakeTempCelsius[3];
-		data.waterTemp = pcars->game->mWaterTempCelsius;
-		data.windX = pcars->game->mWindDirectionX;
-		data.windY = pcars->game->mWindDirectionY;
-		data.windSpeed = pcars->game->mWindSpeed;
-		//--
-		data.tyreGrip_FL = pcars->game->mTyreGrip[0];
-		data.tyreGrip_FR = pcars->game->mTyreGrip[1];
-		data.tyreGrip_BL = pcars->game->mTyreGrip[2];
-		data.tyreGrip_BR = pcars->game->mTyreGrip[3];
-		//--
-		data.tyreTemp_FL = pcars->game->mTyreTreadTemp[0];
-		data.tyreTemp_FR = pcars->game->mTyreTreadTemp[1];
-		data.tyreTemp_BL = pcars->game->mTyreTreadTemp[2];
-		data.tyreTemp_BR = pcars->game->mTyreTreadTemp[3];
-		//--
-		data.tyreRPS_FL = pcars->game->mTyreRPS[0];
-		data.tyreRPS_FR = pcars->game->mTyreRPS[1];
-		data.tyreRPS_BL = pcars->game->mTyreRPS[2];
-		data.tyreRPS_BR = pcars->game->mTyreRPS[3];
-		//--
-		data.brake = pcars->game->mBrake;
-		data.throttle = pcars->game->mThrottle;
-		data.rpm = pcars->game->mRpm;
-		data.clutch = pcars->game->mClutch;
-		data.gear = pcars->game->mGear;
-		data.speed = pcars->game->mSpeed;
+	PCarsTelemetry data;
 
-		buffer->push_back(data);
-	}
+	data.antiLockActive = pcars->game->mAntiLockActive;
+	//--
+	data.avX = pcars->game->mAngularVelocity[0];
+	data.avY = pcars->game->mAngularVelocity[1];
+	data.avZ = pcars->game->mAngularVelocity[2];
+	//--
+	data.aX = pcars->game->mLocalAcceleration[0];
+	data.aY = pcars->game->mLocalAcceleration[1];
+	data.aZ = pcars->game->mLocalAcceleration[2];
+	//--
+	data.vX = pcars->game->mLocalVelocity[0];
+	data.vY = pcars->game->mLocalVelocity[1];
+	data.vZ = pcars->game->mLocalVelocity[2];
+	//--
+	data.pX = pcars->game->mParticipantInfo->mWorldPosition[0];
+	data.pY = pcars->game->mParticipantInfo->mWorldPosition[1];
+	data.pZ = pcars->game->mParticipantInfo->mWorldPosition[2];
+	//--
+	data.rX = pcars->game->mOrientation[0];
+	data.rY = pcars->game->mOrientation[1];
+	data.rZ = pcars->game->mOrientation[2];
+	//--
+	data.brakeTemp = pcars->game->mBrakeTempCelsius[0] + pcars->game->mBrakeTempCelsius[1] + pcars->game->mBrakeTempCelsius[2] + pcars->game->mBrakeTempCelsius[3];
+	data.waterTemp = pcars->game->mWaterTempCelsius;
+	data.windX = pcars->game->mWindDirectionX;
+	data.windY = pcars->game->mWindDirectionY;
+	data.windSpeed = pcars->game->mWindSpeed;
+	//--
+	data.tyreGrip_FL = pcars->game->mTyreGrip[0];
+	data.tyreGrip_FR = pcars->game->mTyreGrip[1];
+	data.tyreGrip_BL = pcars->game->mTyreGrip[2];
+	data.tyreGrip_BR = pcars->game->mTyreGrip[3];
+	//--
+	data.tyreTemp_FL = pcars->game->mTyreTreadTemp[0];
+	data.tyreTemp_FR = pcars->game->mTyreTreadTemp[1];
+	data.tyreTemp_BL = pcars->game->mTyreTreadTemp[2];
+	data.tyreTemp_BR = pcars->game->mTyreTreadTemp[3];
+	//--
+	data.tyreRPS_FL = pcars->game->mTyreRPS[0];
+	data.tyreRPS_FR = pcars->game->mTyreRPS[1];
+	data.tyreRPS_BL = pcars->game->mTyreRPS[2];
+	data.tyreRPS_BR = pcars->game->mTyreRPS[3];
+	//--
+	data.brake = pcars->game->mBrake;
+	data.throttle = pcars->game->mThrottle;
+	data.rpm = pcars->game->mRpm;
+	data.clutch = pcars->game->mClutch;
+	data.gear = pcars->game->mGear;
+	data.speed = pcars->game->mSpeed;
+	//--
+	data.time = pcars->game->mCurrentTime;
+
+	buffer->push_back(data);
 }
 
 void PCarsTelemetryLogger::restart(void)
@@ -92,10 +92,10 @@ void PCarsTelemetryLogger::restart(void)
 	std::remove(this->fileName.c_str());
 }
 
-void PCarsTelemetryLogger::update(PCarsSharedMemory* pcars)
+bool PCarsTelemetryLogger::update(PCarsSharedMemory* pcars)
 {
 	if (!started)
-		return;
+		return false;
 
 	int newTicks = GetTickCount();
 
@@ -104,7 +104,10 @@ void PCarsTelemetryLogger::update(PCarsSharedMemory* pcars)
 		this->bufIndex = (this->bufIndex + 1) % (this->bufSize);
 		this->updateLogger(pcars);
 		this->ticks = newTicks;
+		return true;
 	}
+
+	return false;
 }
 
 void PCarsTelemetryLogger::start(PCarsSharedMemory* pcars)
