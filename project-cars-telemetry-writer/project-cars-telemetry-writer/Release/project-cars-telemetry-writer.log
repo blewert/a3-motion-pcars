@@ -1,0 +1,6 @@
+﻿  PCarsSharedMemory.cpp
+c:\users\ben\source\repos\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarssharedmemory.cpp(152): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  PCarsTelemetryLogger.cpp
+c:\users\ben\source\repos\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarstelemetrylogger.cpp(165): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  project-cars-telemetry-writer.cpp
+c:\users\ben\source\repos\project-cars-telemetry-writer\project-cars-telemetry-writer\project-cars-telemetry-writer.cpp(46): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?

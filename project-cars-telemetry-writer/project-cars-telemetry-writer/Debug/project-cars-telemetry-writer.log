@@ -1,0 +1,3 @@
+﻿  PCarsTelemetryLogger.cpp
+c:\users\ben\source\repos\project-cars-telemetry-writer\project-cars-telemetry-writer\pcarstelemetrylogger.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  project-cars-telemetry-writer.vcxproj -> C:\Users\Ben\source\repos\project-cars-telemetry-writer\Debug\project-cars-telemetry-writer.exe
