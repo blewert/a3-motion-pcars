@@ -20,6 +20,26 @@ public class LogReader
     /// </summary>
     internal ReadStage readStage = ReadStage.STAGE_HEADER;
 
+    private void parseLapInfoLine(string line, ref LogLapInfo lapInfo)
+    {
+        var chunks = line.Split('=');
+
+        if (chunks.Length <= 1)
+            return;
+
+        chunks[0] = chunks[0].TrimEnd();
+        chunks[1] = chunks[1].TrimStart();
+
+        if (chunks[0] == "lap_time")
+            lapInfo.lapTime = float.Parse(chunks[1]);
+
+        else if (chunks[0] == "flap_time")
+            lapInfo.formattedLapTime = chunks[1];
+
+        else if (chunks[0] == "total_laps")
+            lapInfo.totalLaps = int.Parse(chunks[1]);
+    }
+
     private void parseHeaderLine(string line, ref LogHeader header)
     {
         var chunks = line.Split('=');
@@ -30,7 +50,17 @@ public class LogReader
         chunks[0] = chunks[0].TrimEnd();
         chunks[1] = chunks[1].TrimStart();
 
-        Debug.Log(chunks[0]);
+        if (chunks[0] == "car")
+            header.car = chunks[1];
+
+        else if (chunks[0] == "class")
+            header.carClass = chunks[1];
+
+        else if (chunks[0] == "track")
+            header.track = chunks[1];
+
+        else if (chunks[0] == "track_variant")
+            header.trackVariant = chunks[1];
     }
 
     /// <summary>
@@ -83,6 +113,9 @@ public class LogReader
 
         while((line = f.ReadLine()) != null)
         {
+            if (line.Length <= 1)
+                continue;
+
             //The line contains a square bracket, therefore its
             //a designated section of the log file
             //..
@@ -95,9 +128,15 @@ public class LogReader
             if (readStage == ReadStage.STAGE_HEADER)
                 parseHeaderLine(line, ref logHeader);
 
-        }
+            else if (readStage == ReadStage.STAGE_LAP_INFO)
+                parseLapInfoLine(line, ref logLapInfo);
 
+            else
+                logEntries.Add(new LogEntry(line));
+
+        }
+        
         //Return the list of log entries
-        return new Log();
+        return new Log(logHeader, logEntries, logLapInfo);
     }
 }
