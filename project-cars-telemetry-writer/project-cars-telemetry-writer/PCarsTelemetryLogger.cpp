@@ -157,7 +157,17 @@ void PCarsTelemetryLogger::finish(PCarsSharedMemory* pcars)
 	file << "[lap_info]" << std::endl;
 	file << "lap_time = " << pcars->game->mCurrentTime << std::endl;
 	file << "flap_time = " << pcars->getLapTime() << std::endl;
-	file << "total_laps = " << pcars->game->mParticipantInfo->mLapsCompleted << std::endl;
+	file << "total_laps = " << pcars->game->mParticipantInfo->mLapsCompleted << std::endl << std::endl;
+
+	//Open up the name file
+	std::ifstream t("C:\\pcars-logs\\name");
+	std::stringstream buffer;
+	buffer << t.rdbuf();
+
+	//And write the data into there
+	file << "[participant]" << std::endl;
+	file << "name = " << buffer.str() << std::endl;
+	t.close();
 
 	//Close file
 	this->file.close();

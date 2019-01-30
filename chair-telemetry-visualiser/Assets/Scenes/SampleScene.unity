@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea69a67baa12c944e860a2c0d832f065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: C:\pcars-logs\brands-test.log
+  path: C:\pcars-logs\fast-lap.log
   scale: 100
   playbackSpeed: 1
   infoText: {fileID: 1664267367}

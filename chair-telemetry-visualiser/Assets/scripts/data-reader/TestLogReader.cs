@@ -16,6 +16,8 @@ public class TestLogReader : MonoBehaviour
     public string trackedVariable = "gear";
     public int index;
 
+    private float time;
+
     // Use this for initialization
     void Start ()
     {
@@ -33,14 +35,14 @@ public class TestLogReader : MonoBehaviour
 
     private void Update()
     {
+        time += Time.deltaTime * playbackSpeed;
+
         for(int i = 1; i < log.entries.Count; i++)
         {
             var prev = log.entries[i - 1];
             var next = log.entries[i];
 
-            var t = Time.time * playbackSpeed;
-
-            if(prev["time"] <= t && next["time"] >= t)
+            if(prev["time"] <= time && next["time"] >= time)
             {
                 index = i;
                 break;
