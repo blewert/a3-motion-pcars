@@ -174,7 +174,8 @@ void PCarsTelemetryLogger::finish(PCarsSharedMemory* pcars)
 
 	//Rename it to something nicer
 	std::stringstream sstream;
-	sstream << this->basePath << "\\" << pcars->getLapTime(true) << " - " << pcars->game->mTrackLocation << " - " << pcars->game->mCarName << " - " << std::time(NULL) << ".log";
+	//sstream << this->basePath << "\\" << pcars->getLapTime(true) << " - " << pcars->game->mTrackLocation << " - " << pcars->game->mCarName << " - " << std::time(NULL) << ".log";
+	sstream << this->basePath << "\\" << buffer.str() << " - " << std::time(NULL) << ".log";
 	std::string str = sstream.str();
 	std::rename(this->fileName.c_str(), str.c_str());
 
