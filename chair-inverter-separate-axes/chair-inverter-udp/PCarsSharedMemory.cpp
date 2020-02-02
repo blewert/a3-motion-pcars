@@ -16,7 +16,7 @@
 /**
  * Returns the number of CPU cycles via rdtsc
  */
-DWORD64 inline __volatile __fastcall PCarsSharedMemory::getCPUCycles(void) const
+DWORD64 __inline __volatile __fastcall PCarsSharedMemory::getCPUCycles(void) const
 {
 	//The low and high bits of rdtsc
 	uint32_t low = 0, high = 0;
@@ -28,13 +28,14 @@ DWORD64 inline __volatile __fastcall PCarsSharedMemory::getCPUCycles(void) const
 		push edx
 		rdtsc
 
-		//move edx -> hi, eax -> lo
-		mov dword ptr [ebp - 4], edx
-		mov dword ptr [ebp - 8], eax
+		//move edx -> hi, 
+		//move eax -> lo
+		mov [ebp - 4], edx
+		mov [ebp - 8], eax
 
 		//Restore state of original stack
-		pop
-		pop
+		pop eax
+		pop edx
 	}
 
 	//Glue them together
@@ -48,6 +49,9 @@ DWORD64 inline __volatile __fastcall PCarsSharedMemory::getCPUCycles(void) const
  */
 PCarsSharedMemory::PCarsSharedMemory(void)
 {
+	//Get the cpu cycles
+	uint64_t cycles = this->getCPUCycles();
+		 
 	//Seed the RNG generator
 	std::srand(this->getCPUCycles());
 
@@ -144,36 +148,36 @@ bool PCarsSharedMemory::isWaitingForRaceStart(void) const
 /**
  * Like sprintf_s but for std::string
  */
-std::string PCarsSharedMemory::formatString(const std::string& format, ...) const
-{
-	//List of args, start according to format
-	va_list vl;
-	va_start(vl, format);
-
-	//Pointer to array which will be allocated
-	char* buffer;
-
-	//Find the length of things to format
-	unsigned int len = _vscprintf(format.c_str(), vl);
-
-	//Allocate that number of things
-	buffer = (char*)malloc(sizeof(char) * len);
-
-	//Save into this string
-	vsprintf_s(buffer, 256, format.c_str(), vl);
-
-	//Call va_end
-	va_end(vl);
-
-	//Make the string
-	std::string str = std::string(buffer);
-
-	//Free the buffer
-	free(buffer);
-
-	//Return the string!
-	return str;
-}
+//std::string PCarsSharedMemory::formatString(const std::string& format, ...) const
+//{
+//	//List of args, start according to format
+//	va_list vl;
+//	va_start(vl, format);
+//
+//	//Pointer to array which will be allocated
+//	char* buffer;
+//
+//	//Find the length of things to format
+//	unsigned int len = _vscprintf(format.c_str(), vl);
+//
+//	//Allocate that number of things
+//	buffer = (char*)malloc(sizeof(char) * len);
+//
+//	//Save into this string
+//	vsprintf_s(buffer, 256, format.c_str(), vl);
+//
+//	//Call va_end
+//	va_end(vl);
+//
+//	//Make the string
+//	std::string str = std::string(buffer);
+//
+//	//Free the buffer
+//	free(buffer);
+//
+//	//Return the string!
+//	return str;
+//}
 
 /**
  * Gets the lap time as a string
